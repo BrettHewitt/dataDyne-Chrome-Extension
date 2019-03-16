@@ -20,6 +20,122 @@ function onNativeMessage(message)
 	var commandParams = command.split(" ");
 	var firstCommand = commandParams[0];
 	
+	if (firstCommand == "focuswindow")
+	{
+		if (commandParams.length < 2)
+		{
+			SendNativeMessage("Can't focus window without an ID");
+			return; 
+		}
+		
+		var parameter = commandParams[1];		
+		var windowId = parseInt(parameter, 10);
+		
+		if (!windowId)
+		{
+			SendNativeMessage("Window ID is invalid");
+			return;
+		}
+		
+		chrome.windows.update(windowId, {focused: true}, function(win) 
+		{
+			if (win != null)
+			{
+				var msg = "Window Id: " + windowId + " focused";
+				SendNativeMessage(msg);
+			}
+			else
+			{
+				SendNativeMessage("Window Id: " + windowId + " does not exist");
+			}			
+		});
+		
+		return;
+	}
+	
+	if (firstCommand == "movewindow")
+	{
+		if (commandParams.length < 4)
+		{
+			SendNativeMessage("Can't move window without an ID");
+			return; 
+		}
+		
+		var parameter = commandParams[1];		
+		var windowId = parseInt(parameter, 10);
+		var xPosParam = commandParams[2];
+		var yPosParam = commandParams[3];
+		var xPos = parseInt(xPosParam);
+		var yPos = parseInt(yPosParam);
+		
+		if (isNaN(windowId))
+		{
+			SendNativeMessage("Window ID is invalid");
+			return;
+		}
+		
+		if (isNaN(xPos))
+		{
+			SendNativeMessage("Invalid X co-ordinate");
+			return;
+		}
+		
+		if (isNaN(yPos))
+		{
+			SendNativeMessage("Invalid Y co-ordinate");
+			return;
+		}
+		
+		chrome.windows.update(windowId, {left: xPos, top: yPos}, function(win) 
+		{
+			if (win != null)
+			{
+				var msg = "Window Id: " + windowId + " moved to co-ordinates: " + xPos  + " - " + yPos;
+				SendNativeMessage(msg);
+			}
+			else
+			{
+				SendNativeMessage("Window Id: " + windowId + " does not exist");
+			}			
+		});
+		
+		return;
+	}
+	
+	if (firstCommand == "changestate")
+	{
+		if (commandParams.length < 3)
+		{
+			SendNativeMessage("Can't change window state without an ID");
+			return; 
+		}
+		
+		var parameter = commandParams[1];		
+		var windowId = parseInt(parameter, 10);
+		var windowState = commandParams[2];
+		
+		if (isNaN(windowId))
+		{
+			SendNativeMessage("Window ID is invalid");
+			return;
+		}
+				
+		chrome.windows.update(windowId, {state: windowState}, function(win) 
+		{
+			if (win != null)
+			{
+				var msg = "Window Id: " + windowId + " state changed to: " + windowState;
+				SendNativeMessage(msg);
+			}
+			else
+			{
+				SendNativeMessage("Window Id: " + windowId + " does not exist");
+			}			
+		});
+		
+		return;
+	}
+	
 	if (firstCommand == "closewindow")
 	{
 		if (commandParams.length < 2)
@@ -287,7 +403,7 @@ function onNativeMessage(message)
 		});
 				
 		return;
-	}
+	}	
 }
 
 function DoesTabExist(tabId, callback)
