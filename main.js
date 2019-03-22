@@ -53,6 +53,38 @@ function onNativeMessage(message)
 		return;
 	}
 	
+	if (firstCommand == "getwindowpos")
+	{
+		if (commandParams.length < 2)
+		{
+			SendNativeMessage("Can't get window position without an ID");
+			return; 
+		}
+		
+		var parameter = commandParams[1];		
+		var windowId = parseInt(parameter, 10);
+		
+		if (!windowId)
+		{
+			SendNativeMessage("Window ID is invalid");
+			return;
+		}
+		
+		chrome.windows.get(windowId, function win)
+		{
+			if (win != null)
+			{
+				SendNativeMessage("{\"Top\": " + win.Top + ", \"Left\": " + win.Left + "}");
+			}
+			else
+			{
+				SendNativeMessage("Window Id: " + windowId + " does not exist");
+			}	
+		});
+		
+		return;
+	}
+	
 	if (firstCommand == "movewindow")
 	{
 		if (commandParams.length < 4)

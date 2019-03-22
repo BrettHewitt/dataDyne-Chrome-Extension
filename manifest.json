@@ -1,7 +1,7 @@
 {
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjWGe656qa6bKMRCE7Miha2e32msA74Qu4DOz12TXUyxqjPTrkwbD5YMUilT5wDfDGpXyfPlP+LqAADiqn0R/qOAcr1Uek93iWT4zgeDGT/ny0OxiGMRpZ5DslL9U5vuluV2EVRWzcZREoVrYbX3TxvXGjOEQZ+rawIHPzrcQcLeh4DEoh8r4xST3mnM/6LUYO2Y/k6vmerxS6OIu9UgN8uz6NmD5t8K3kHLyxuxAse6ltWre80eQdN0Gk6mqZn5gSUK0/PBPgOlqVni7lhrDZt+qsr1aBOyCKfLhA7pe/x3SwfK54dTdlaOa/tObUvb3qDA5Q0ayb1oGPnxDDqWxCQIDAQAB",
   "name": "dataDyne Laboratories Communication Server",
-  "version": "1.3.1",
+  "version": "1.3.3",
   "manifest_version": 2,
   "description": "dataDyne Communication Extension to interact with the Service Host",
   "background": {
